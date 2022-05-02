@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
-import {Button, Input, Image} from 'react-native-elements';
-import {StatusBar} from 'expo-status-bar';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
+import { Button, Input, Image } from 'react-native-elements';
+import { StatusBar } from 'expo-status-bar';
 import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from '../firebase';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const logo = require('../assets/logo.png');
 
@@ -17,48 +19,60 @@ const LoginScreen = ({navigation}) => {
 
   useEffect(
     () =>
-      onAuthStateChanged(auth, user => {
-        if (user) navigation.replace('Home');
+      onAuthStateChanged(auth, (user) => {
+        if (user) navigation.replace('AfterLoginNavigator');
       }),
-    [auth, navigation],
+    [auth, navigation]
   );
 
   const signIn = () => {
-    signInWithEmailAndPassword(auth, email, password).catch(error =>
-      console.log(error.message),
+    signInWithEmailAndPassword(auth, email, password).catch((error) =>
+      console.log(error.message)
     );
   };
 
+  const goToResetPassword = () => {
+    navigation.navigate('ResetPassword');
+  };
+
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.container}>
-      <StatusBar style="light" />
+    <KeyboardAvoidingView behavior='padding' style={styles.container}>
+      <StatusBar style='light' />
       <Image source={logo} style={styles.ImageDimension} />
       <View style={styles.inputContainer}>
         <Input
-          placeholder="Email"
+          placeholder='Email'
           autoFocus
-          type="email"
+          type='email'
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
         />
         <Input
-          placeholder="Password"
+          placeholder='Password'
           secureTextEntry
-          type="password"
+          type='password'
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           onSubmitEditing={signIn}
         />
       </View>
 
-      <Button containerStyle={styles.button} onPress={signIn} title="Login" />
+      <Button containerStyle={styles.button} onPress={signIn} title='Login' />
       <Button
         containerStyle={styles.button}
         onPress={() => navigation.navigate('Register')}
-        type="outline"
-        title="Register"
+        type='outline'
+        title='Register'
       />
-      <View style={{height: 100}} />
+
+      <Button
+        title='Forgot Password?'
+        onPress={goToResetPassword}
+        titleStyle={{ marginTop: 20 , color: '#039BE5', fontSize: 15}}
+        type='clear'
+      />
+
+      <View style={{ height: 100 }} />
     </KeyboardAvoidingView>
   );
 };

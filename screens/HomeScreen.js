@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
   const db = getFirestore();
 
   const signOutUser = () => {
-    signOut(auth).then(() => navigation.replace('Login'));
+    signOut(auth).then(() => navigation.replace('AuthNavigator'));
   };
 
   useEffect(
@@ -65,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
 
           <TouchableOpacity
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('AddChat')}
+            onPress={() => navigation.navigate('Add Chat')}
           >
             <SimpleLineIcons name='pencil' size={18} color='black' />
           </TouchableOpacity>
