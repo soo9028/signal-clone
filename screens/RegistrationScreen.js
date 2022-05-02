@@ -22,7 +22,6 @@ const RegisterScreen = ({navigation}) => {
 
   const register = () => {
     const auth = getAuth();
-    console.log(auth);
     createUserWithEmailAndPassword(auth, email, password)
       .then(authUser => {
         const user = authUser.user;
@@ -41,7 +40,7 @@ const RegisterScreen = ({navigation}) => {
       <StatusBar style="light" />
 
       <Text h3 style={{marginBottom: 50}}>
-        Create an account
+        Create a signal account
       </Text>
 
       <View style={styles.inputContainer}>

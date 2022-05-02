@@ -16,9 +16,7 @@ import {
   updateProfile,
   signOut,
 } from 'firebase/auth';
-import { getDatabase } from "firebase/database";
-import { getDoc } from 'firebase/firestore'
-import { firebase } from '@react-native-firebase/messaging';
+// import { getDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDwBEAZdddfVYg3bHWJkWFiSDQyq5d6Ga4',
@@ -30,22 +28,7 @@ const firebaseConfig = {
   measurementId: 'G-RVH86YZ8FX',
 };
 
-// if (!getApps().length) initializeApp(firebaseConfig);
-const app = initializeApp(firebaseConfig);
-
-// const database = getDatabase(app);
-
-// passwordReset: email => {
-//   return firebase.auth().sendPasswordResetEmail(email);
-// }
-
-// initialize firebase
-initializeApp(firebaseConfig);
-
-// initialize auth
-const auth = getAuth();
-
-export { auth };
+if (!getApps().length) initializeApp(firebaseConfig);
 
 export {
   getAuth,
