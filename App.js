@@ -10,47 +10,47 @@ import ResetPassword from './screens/ResetPassword';
 import AuthNavigator from './navigation/AuthNavigator';
 import RegisterScreen from './screens/RegisterScreen';
 import AfterLoginNavigator from './navigation/AfterLoginNavigator';
-import messaging from '@react-native-firebase/messaging';
-
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
-});
+import ChatScreen from './screens/ChatScreen';
+import AddChatScreen from './screens/AddChatScreen';
+import TabNavigator from './navigation/TabNavigator';
 
 const RootStack = createNativeStackNavigator();
 const globalScreenOptions = {
-  headerStyle: { backgroundColor: '#2c68ed' },
-  headerTitleStyle: { color: 'white' },
-  headerTintColor: 'white',
+    headerStyle: { backgroundColor: '#2c68ed' },
+    headerTitleStyle: { color: 'white' },
+    headerTintColor: 'white',
 };
 
-export default function App() {
+export default function App({ chatName }) {
 
-  async function requestUserPermission() {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-  
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
-    }
-  };
-
-  return (
-    <NavigationContainer>
-      <RootStack.Navigator screenOptions={globalScreenOptions}>
-        <RootStack.Screen  options={{headerShown:true, title:'Signal App Clone'}} name='AuthNavigator' component={AuthNavigator} />
-        <RootStack.Screen options={{headerShown:false}} name='AfterLoginNavigator' component={AfterLoginNavigator}/>
-      </RootStack.Navigator>
-    </NavigationContainer>
-  );
+    return (
+        <NavigationContainer>
+            <RootStack.Navigator screenOptions={globalScreenOptions}>
+                <RootStack.Screen
+                    options={{ headerShown: true, title: 'Signal App Clone' }}
+                    name='AuthNavigator'
+                    component={AuthNavigator}
+                />
+                <RootStack.Screen
+                    options={{ headerShown: false }}
+                    name='AfterLoginNavigator'
+                    component={AfterLoginNavigator}
+                />
+                <RootStack.Screen
+                    options={{ headerShown: true}}
+                    name='Chat'
+                    component={ChatScreen}
+                />
+            </RootStack.Navigator>
+        </NavigationContainer>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

@@ -1,46 +1,51 @@
-import React, {useLayoutEffect, useState} from 'react';
-import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
-import {Button, Input, Text} from 'react-native-elements';
-import {StatusBar} from 'expo-status-bar';
+import React, { useLayoutEffect, useState } from "react";
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { Button, Input, Text } from "react-native-elements";
+import { StatusBar } from "expo-status-bar";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-} from '../firebase';
+} from "../firebase";
 
-const RegisterScreen = ({navigation}) => {
-  const [fullname, setFullname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [imgurl, setImgurl] = useState('');
+const RegisterScreen = ({ navigation }) => {
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [imgurl, setImgurl] = useState("");
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerBackTitle: 'Back To Login',
+      headerBackTitle: "Back To Login",
     });
   }, [navigation]);
 
   const register = () => {
     const auth = getAuth();
-    console.log(auth);
     createUserWithEmailAndPassword(auth, email, password)
-      .then(authUser => {
-        const user = authUser.user;
+      .then((userCredential) => {
+        const user = userCredential.user;
         updateProfile(user, {
           displayName: fullname,
-          photoURL: imgurl,
+          photoURL: avatar
+            ? avatar
+            : "https://gravatar.com/avatar/94d45dbdba988afacf30d916e7aaad69?s=200&d=mp&r=x",
         })
-          .then(() => console.log('Profile Updated!'))
-          .catch(error => console.log(error.message));
+          .then(() => alert("Registered, please login."))
+          .catch((error) => console.log(error.message));
       })
-      .catch(error => alert(error.message));
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <StatusBar style="light" />
 
-      <Text h3 style={{marginBottom: 50}}>
+      <Text h3 style={{ marginBottom: 50 }}>
         Create an account
       </Text>
 
@@ -50,26 +55,26 @@ const RegisterScreen = ({navigation}) => {
           autoFocus
           type="text"
           value={fullname}
-          onChangeText={text => setFullname(text)}
+          onChangeText={(text) => setFullname(text)}
         />
         <Input
           placeholder="Email"
           type="email"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
         />
         <Input
           placeholder="Password"
           secureTextEntry
           type="password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
         />
         <Input
           placeholder="Profile ImageURL (Optional)"
           type="text"
           value={imgurl}
-          onChangeText={text => setImgurl(text)}
+          onChangeText={(text) => setImgurl(text)}
           onSubmitEditing={register}
         />
       </View>
@@ -80,7 +85,7 @@ const RegisterScreen = ({navigation}) => {
         onPress={register}
         title="Register"
       />
-      <View style={{height: 100}} />
+      <View style={{ height: 100 }} />
     </KeyboardAvoidingView>
   );
 };
@@ -102,9 +107,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
 });
