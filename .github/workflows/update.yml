@@ -44,5 +44,5 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Publish update
-        run: eas update --auto
+      - name: Make new build files
+        run: eas build -p android && eas build -p ios
