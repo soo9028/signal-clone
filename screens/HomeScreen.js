@@ -26,10 +26,10 @@ const HomeScreen = ({ navigation, route }) => {
     const auth = getAuth();
     const [chats, setChats] = useState([]);
 
-  const signOutUser = () => {
-    signOut(auth).then(() => navigation.replace('Login'));
-  };
-    const docRef = doc(db, 'messages/2xE8piXfEbNipetyONbE');
+//   const signOutUser = () => {
+//     signOut(auth).then(() => navigation.replace('Login'));
+//   };
+//     const docRef = doc(db, 'messages/2xE8piXfEbNipetyONbE');
     //Remove photoURL field from messages
     
 
@@ -44,12 +44,6 @@ const HomeScreen = ({ navigation, route }) => {
         signOut(auth).then(() => navigation.replace('AuthNavigator'));
     };
 
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('AddChat')}
-          >
-            <SimpleLineIcons name='pencil' size={18} color='black' />
-          </TouchableOpacity>
     const deleteChats = async () => {
         await deleteDoc(collection(db, `chats/${route.params.id}`, 'messages'))
             .then(() => navigation.navigate('Home'))

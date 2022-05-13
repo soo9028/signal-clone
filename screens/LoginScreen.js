@@ -19,10 +19,10 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(
     () =>
-      onAuthStateChanged(auth, user => {
-        if (user) navigation.replace('Home');
+      onAuthStateChanged(auth, (user) => {
+        if (user) navigation.replace('AfterLoginNavigator');
       }),
-    [auth, navigation],
+    [auth, navigation]
   );
 
   const signIn = () => {
@@ -52,14 +52,14 @@ const LoginScreen = ({ navigation }) => {
           autoFocus
           type="email"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
         />
         <Input
           placeholder="Password"
           secureTextEntry
           type="password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           onSubmitEditing={signIn}
         />
       </View>
@@ -78,7 +78,8 @@ const LoginScreen = ({ navigation }) => {
         titleStyle={{ marginTop: 20, color: "#039BE5", fontSize: 15 }}
         type="clear"
       />
-      <View style={{height: 100}} />
+
+      <View style={{ height: 100 }} />
     </KeyboardAvoidingView>
   );
 };

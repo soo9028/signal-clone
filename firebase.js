@@ -18,7 +18,6 @@ import {
     updateProfile,
     signOut,
 } from 'firebase/auth';
-// import { getDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDwBEAZdddfVYg3bHWJkWFiSDQyq5d6Ga4',
@@ -31,6 +30,11 @@ const firebaseConfig = {
 };
 
 if (!getApps().length) initializeApp(firebaseConfig);
+
+// export const db = getFirestore(app);
+// const auth = firebase.auth();
+
+// export { db, auth };
 
 export {
     getAuth,

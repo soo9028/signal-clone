@@ -1,15 +1,20 @@
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginNav from './navigation/AuthNavigator';
 import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegistrationScreen';
 import HomeScreen from './screens/HomeScreen';
-import AddChatScreen from './screens/AddChatScreen';
-import ChatScreen from './screens/ChatScreen';
+import ResetPassword from './screens/ResetPassword';
+import AuthNavigator from './navigation/AuthNavigator';
+import RegisterScreen from './screens/RegisterScreen';
 import AfterLoginNavigator from './navigation/AfterLoginNavigator';
+import ChatScreen from './screens/ChatScreen';
+import AddChatScreen from './screens/AddChatScreen';
+import TabNavigator from './navigation/TabNavigator';
 
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator();
 const globalScreenOptions = {
     headerStyle: { backgroundColor: '#2c68ed' },
     headerTitleStyle: { color: 'white' },
