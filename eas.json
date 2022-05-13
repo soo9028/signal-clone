@@ -1,19 +1,25 @@
 {
-  "cli": {
-    "version": ">= 0.52.0"
-  },
+    "cli": {
+        "version": ">= 0.52.0"
+    },
 
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "android": {
+              "gradleCommand": ":app:assembleDebug"
+            },
+            "ios": {
+              "buildConfiguration": "Debug"
+            }
+        },
+        "preview": {
+            "distribution": "internal"
+        },
+        "production": {}
     },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
-  }
+    "submit": {
+        "production": {}
+    }
 }
